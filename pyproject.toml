@@ -1,0 +1,29 @@
+[project]
+name = "store-sales-rnd"
+version = "0.1.0"
+description = "ДЗ по курсу R&D в ML: прогноз продаж Kaggle Store Sales"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "numpy==1.26.4",
+    "pandas==2.2.3",
+    "lightgbm==4.6.0",
+    "pyyaml>=6.0",
+    "matplotlib>=3.7",
+    "mlflow>=2.17",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6",
+    "pre-commit>=3.7",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

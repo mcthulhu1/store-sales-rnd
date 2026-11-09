@@ -1,0 +1,33 @@
+data_dir: data/raw
+output_dir: outputs
+
+horizon: 16                # сколько дней прогнозируем (как в test.csv)
+n_folds: 4                 # сколько окон валидации по 16 дней в конце train
+train_start: "2016-06-01"  # около года истории: одно лето и без землетрясения 16.04.2016
+
+# признаки LightGBM (все лаги не меньше горизонта, иначе утечка)
+lags: [16, 21, 28, 35]
+roll_windows: [7, 14, 28]  # скользящие средние, посчитанные от лага 16
+
+# наивные baseline
+seasonal_naive_days: 7
+moving_average_days: 28
+
+# бутстрап по рядам для 95% интервалов RMSLE
+n_bootstrap: 1000
+
+mlflow:
+  tracking_uri: sqlite:///mlflow.db
+  experiment: store-sales-hw1
+
+seed: 42
+lgbm_params:
+  objective: regression  # учим на log1p(sales), поэтому это почти RMSLE
+  learning_rate: 0.05
+  num_leaves: 31
+  min_data_in_leaf: 100
+  feature_fraction: 0.8
+  num_threads: 4
+  deterministic: true
+  verbose: -1
+num_boost_round: 300
