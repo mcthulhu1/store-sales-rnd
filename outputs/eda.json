@@ -1,0 +1,75 @@
+{
+  "train_rows": 3000888,
+  "test_rows": 28512,
+  "train_period": [
+    "2013-01-01",
+    "2017-08-15"
+  ],
+  "test_period": [
+    "2017-08-16",
+    "2017-08-31"
+  ],
+  "n_stores": 54,
+  "n_families": 33,
+  "missing_days_in_train": [
+    "2013-12-25",
+    "2014-12-25",
+    "2015-12-25",
+    "2016-12-25"
+  ],
+  "nan_in_train": 0,
+  "oil_nan_share": 0.035,
+  "zero_sales_share": 0.313,
+  "fractional_sales_share": 0.154,
+  "series_all_zero_last_56d": 96,
+  "stores_opened_late": {
+    "20": "2015-02-13",
+    "21": "2015-07-24",
+    "22": "2015-10-09",
+    "29": "2015-03-20",
+    "36": "2013-05-09",
+    "42": "2015-08-21",
+    "52": "2017-04-20",
+    "53": "2014-05-29"
+  },
+  "sales_quantiles": {
+    "0.5": 11.0,
+    "0.9": 867.0,
+    "0.99": 5507.0,
+    "1.0": 124717.0
+  },
+  "mean_sales_by_weekday_mon0": [
+    346.5,
+    319.8,
+    332.9,
+    283.5,
+    325.2,
+    433.3,
+    463.1
+  ],
+  "share_rows_on_promo": 0.204,
+  "mean_sales_no_promo": 158.2,
+  "mean_sales_promo": 1137.7,
+  "top_families_by_sales": {
+    "GROCERY I": 343462735.0,
+    "BEVERAGES": 216954486.0,
+    "PRODUCE": 122704685.0,
+    "CLEANING": 97521289.0,
+    "DAIRY": 64487709.0
+  },
+  "holiday_types": {
+    "Holiday": 221,
+    "Event": 56,
+    "Additional": 51,
+    "Transfer": 12,
+    "Bridge": 5,
+    "Work Day": 5
+  },
+  "store_types": {
+    "D": 18,
+    "C": 15,
+    "A": 9,
+    "B": 8,
+    "E": 4
+  }
+}

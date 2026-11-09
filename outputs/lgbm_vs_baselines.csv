@@ -1,0 +1,9 @@
+fold,baseline,rmsle_diff,diff_ci_low,diff_ci_high
+0,moving_average_28,0.0878,0.0811,0.095
+0,seasonal_naive_7,0.131,0.1222,0.14
+1,moving_average_28,0.0732,0.0682,0.0782
+1,seasonal_naive_7,0.132,0.1241,0.1409
+2,moving_average_28,0.0695,0.0612,0.0778
+2,seasonal_naive_7,0.1219,0.1109,0.1331
+3,moving_average_28,0.102,0.0663,0.1372
+3,seasonal_naive_7,0.1974,0.1632,0.2337
