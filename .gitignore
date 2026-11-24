@@ -6,3 +6,6 @@ __pycache__/
 mlflow.db
 mlruns/
 mlartifacts/
+.idea/
+# прогнозы по каждому запуску ДЗ №2-3 (~2 МБ на запуск) воспроизводятся скриптами, в git не нужны
+outputs/hw*/**/val_predictions_last_fold.csv

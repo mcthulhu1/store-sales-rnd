@@ -1,0 +1,8 @@
+base: ../baseline.yaml
+experiment_id: A1_full_minus_long_weekend
+hypothesis: "абляция: вклад длинных выходных внутри полной модели"
+output_dir: outputs/hw2/A1_full_minus_long_weekend/seed42
+extra_features: [yoy, local_holiday, payday]
+seed: 42
+mlflow:
+  experiment: store-sales-hw2

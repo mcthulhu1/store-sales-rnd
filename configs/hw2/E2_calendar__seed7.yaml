@@ -1,0 +1,8 @@
+base: ../baseline.yaml
+experiment_id: E2_calendar
+hypothesis: "календарь (длинные выходные, местные праздники, дни после зарплаты) уберет перепрогноз 12-13.08 и недопрогноз 31.07-01.08"
+output_dir: outputs/hw2/E2_calendar/seed7
+extra_features: [long_weekend, local_holiday, payday]
+seed: 7
+mlflow:
+  experiment: store-sales-hw2

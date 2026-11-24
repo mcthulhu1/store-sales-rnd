@@ -1,0 +1,45 @@
+{
+  "data_dir": "data/raw",
+  "output_dir": "outputs/hw2/E3_full/seed42",
+  "horizon": 16,
+  "n_folds": 4,
+  "train_start": "2016-06-01",
+  "lags": [
+    16,
+    21,
+    28,
+    35
+  ],
+  "roll_windows": [
+    7,
+    14,
+    28
+  ],
+  "seasonal_naive_days": 7,
+  "moving_average_days": 28,
+  "n_bootstrap": 1000,
+  "mlflow": {
+    "tracking_uri": "sqlite:///mlflow.db",
+    "experiment": "store-sales-hw2"
+  },
+  "seed": 42,
+  "lgbm_params": {
+    "objective": "regression",
+    "learning_rate": 0.05,
+    "num_leaves": 31,
+    "min_data_in_leaf": 100,
+    "feature_fraction": 0.8,
+    "num_threads": 4,
+    "deterministic": true,
+    "verbose": -1
+  },
+  "num_boost_round": 300,
+  "experiment_id": "E3_full",
+  "hypothesis": "\u043e\u0431\u0430 \u0443\u043b\u0443\u0447\u0448\u0435\u043d\u0438\u044f \u0432\u043c\u0435\u0441\u0442\u0435",
+  "extra_features": [
+    "yoy",
+    "long_weekend",
+    "local_holiday",
+    "payday"
+  ]
+}

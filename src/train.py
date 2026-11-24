@@ -13,7 +13,6 @@ import lightgbm as lgb
 import mlflow
 import numpy as np
 import pandas as pd
-import yaml
 
 from utils import (
     CAT_FEATURES,
@@ -21,6 +20,7 @@ from utils import (
     bootstrap_ci,
     bootstrap_diff_ci,
     feature_list,
+    load_config,
     load_data,
     rmsle,
     squared_log_error_by_series,
@@ -82,8 +82,19 @@ def log_to_mlflow(config, config_path, results, out_dir):
     data_version = file_md5(os.path.join(config["data_dir"], "train.csv"))
     commit = git_commit()
     for model_name, model_res in results.groupby("model"):
-        with mlflow.start_run(run_name=model_name):
-            mlflow.set_tags({"model": model_name, "git_commit": commit})
+        experiment_id = config.get("experiment_id", model_name)
+        run_name = f"{experiment_id}/seed{config['seed']}"
+        if model_name != "lightgbm":
+            run_name += f"/{model_name}"
+        with mlflow.start_run(run_name=run_name):
+            mlflow.set_tags(
+                {
+                    "model": model_name,
+                    "git_commit": commit,
+                    "experiment_id": experiment_id,
+                    "hypothesis": config.get("hypothesis", ""),
+                }
+            )
             mlflow.log_params(
                 {
                     "model": model_name,
@@ -101,6 +112,7 @@ def log_to_mlflow(config, config_path, results, out_dir):
                         "num_boost_round": config["num_boost_round"],
                         "lags": config["lags"],
                         "roll_windows": config["roll_windows"],
+                        "extra_features": ",".join(config.get("extra_features", [])) or "none",
                     }
                 )
             for _, row in model_res.iterrows():
@@ -121,14 +133,14 @@ def log_to_mlflow(config, config_path, results, out_dir):
             if model_name == "lightgbm":
                 mlflow.log_artifact(f"{out_dir}/feature_importance.csv")
                 mlflow.log_artifact(f"{out_dir}/lgbm_vs_baselines.csv")
+                mlflow.log_artifact(f"{out_dir}/series_errors.csv")
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/baseline.yaml")
     args = parser.parse_args()
-    with open(args.config) as f:
-        config = yaml.safe_load(f)
+    config = load_config(args.config)
     out_dir = config["output_dir"]
     os.makedirs(out_dir, exist_ok=True)
 
@@ -138,7 +150,7 @@ def main():
     last_date = df["date"].max()
     n_boot, seed = config["n_bootstrap"], config["seed"]
 
-    results, comparisons, importances = [], [], []
+    results, comparisons, importances, series_errors = [], [], [], []
     for fold in range(config["n_folds"]):
         # фолды идут подряд, последний заканчивается в последний день train
         k = config["n_folds"] - 1 - fold
@@ -158,6 +170,18 @@ def main():
         importances.append(pd.Series(model.feature_importance("gain"), index=features))
 
         errors = {name: squared_log_error_by_series(val, pred) for name, pred in preds.items()}
+        # ошибка LightGBM по рядам - для парного сравнения экспериментов ДЗ №2 (compare.py)
+        keys = val.groupby(["store_nbr", "family"], observed=True).size().index
+        series_errors.append(
+            pd.DataFrame(
+                {
+                    "fold": fold,
+                    "store_nbr": keys.get_level_values(0),
+                    "family": keys.get_level_values(1),
+                    "sq_log_err": errors["lightgbm"],
+                }
+            )
+        )
         period = f"{cutoff.date()}..{val_end.date()}"
         for name, pred in preds.items():
             ci_low, ci_high = bootstrap_ci(errors[name], n_boot, seed)
@@ -199,11 +223,12 @@ def main():
     # важность признаков, усредненная по всем фолдам
     importance = pd.concat(importances, axis=1).mean(axis=1).sort_values(ascending=False)
     importance.round(1).to_csv(f"{out_dir}/feature_importance.csv", header=["gain_mean"])
+    pd.concat(series_errors).to_csv(f"{out_dir}/series_errors.csv", index=False)
 
     results = pd.DataFrame(results)
-    results.round(4).to_csv(f"{out_dir}/results_by_fold.csv", index=False)
+    results.to_csv(f"{out_dir}/results_by_fold.csv", index=False)  # без округления: сравнения в compare.py
     comparisons = pd.DataFrame(comparisons)
-    comparisons.round(4).to_csv(f"{out_dir}/lgbm_vs_baselines.csv", index=False)
+    comparisons.to_csv(f"{out_dir}/lgbm_vs_baselines.csv", index=False)
     summary = (
         results.groupby("model")
         .agg(
@@ -213,7 +238,7 @@ def main():
         )
         .sort_values("rmsle_mean")
     )
-    summary.round(4).to_csv(f"{out_dir}/results_summary.csv")
+    summary.to_csv(f"{out_dir}/results_summary.csv")
     print(summary.round(4))
     print(comparisons.round(4).to_string(index=False))
     with open(f"{out_dir}/config_used.json", "w") as f:

@@ -12,9 +12,8 @@ matplotlib.use("Agg")
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import pandas as pd
-import yaml
 
-from utils import rmsle
+from utils import load_config, rmsle
 
 MODELS = ["lightgbm", "moving_average_28", "seasonal_naive_7"]
 
@@ -23,8 +22,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/baseline.yaml")
     args = parser.parse_args()
-    with open(args.config) as f:
-        config = yaml.safe_load(f)
+    config = load_config(args.config)
     out = config["output_dir"]
     os.makedirs(f"{out}/plots", exist_ok=True)
 
