@@ -1,0 +1,8 @@
+base: ../baseline.yaml
+experiment_id: E1_yoy
+hypothesis: "годовая сезонность (lag_364, yoy_roll_7) уберет недопрогноз канцтоваров перед учебным годом"
+output_dir: outputs/hw2/E1_yoy/seed42
+extra_features: [yoy]
+seed: 42
+mlflow:
+  experiment: store-sales-hw2

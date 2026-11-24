@@ -1,6 +1,8 @@
 # Store Sales: прогноз продаж на 16 дней
 
-ДЗ №1 по курсу «R&D в ML», ИТМО. Ширяев Илья, M4150.
+ДЗ №1 и ДЗ №2 по курсу «R&D в ML», ИТМО. Ширяев Илья, M4150.
+
+Этот README - отчет по ДЗ №1 (постановка, baseline, протокол валидации). Отчет по ДЗ №2 (улучшения, трекинг, абляции) - в [HW2.md](HW2.md).
 
 Соревнование: [Store Sales - Time Series Forecasting](https://www.kaggle.com/competitions/store-sales-time-series-forecasting)
 
@@ -25,6 +27,12 @@ uv run bash scripts/run_baseline.sh configs/my.yaml # другой конфиг
 - `src/eda.py` - короткий EDA, результат в `outputs/eda.json` и `outputs/plots/`;
 - `src/train.py` - обучение и валидация на 4 фолдах, результат в `outputs/results_*.csv`, запись запусков в MLflow;
 - `src/evaluate.py` - анализ ошибок на последнем фолде, результат в `outputs/errors_*.csv` и графики.
+
+Эксперименты ДЗ №2 (все конфиги из `configs/hw2/`, затем сводная таблица и графики):
+
+```bash
+uv run bash scripts/run_hw2.sh
+```
 
 Все параметры лежат в `configs/baseline.yaml`, копия использованного конфига сохраняется в `outputs/config_used.json`. Полный прогон занимает около 30 секунд. LightGBM запускается с `deterministic: true` и фиксированным `seed`, поэтому повторный прогон дает те же цифры.
 

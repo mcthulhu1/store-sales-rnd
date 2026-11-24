@@ -1,0 +1,8 @@
+base: ../baseline.yaml
+experiment_id: A3_full_minus_payday
+hypothesis: "абляция: вклад дней после зарплаты внутри полной модели"
+output_dir: outputs/hw2/A3_full_minus_payday/seed7
+extra_features: [yoy, long_weekend, local_holiday]
+seed: 7
+mlflow:
+  experiment: store-sales-hw2

@@ -1,0 +1,8 @@
+base: ../baseline.yaml
+experiment_id: E0_baseline
+hypothesis: "baseline ДЗ №1 без изменений - точка отсчета"
+output_dir: outputs/hw2/E0_baseline/seed7
+extra_features: []
+seed: 7
+mlflow:
+  experiment: store-sales-hw2

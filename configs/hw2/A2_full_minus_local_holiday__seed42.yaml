@@ -1,0 +1,8 @@
+base: ../baseline.yaml
+experiment_id: A2_full_minus_local_holiday
+hypothesis: "абляция: вклад местных праздников внутри полной модели"
+output_dir: outputs/hw2/A2_full_minus_local_holiday/seed42
+extra_features: [yoy, long_weekend, payday]
+seed: 42
+mlflow:
+  experiment: store-sales-hw2

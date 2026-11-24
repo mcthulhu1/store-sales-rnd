@@ -1,0 +1,6 @@
+experiment,removed,rmsle_mean,increase_mean,increase_min,increase_max,seeds_worse,mae_mean_change,school_rmsle_f3_change,bias_12_13_aug_pct_change,bias_31jul_1aug_pct_change
+E2_calendar,yoy (годовая сезонность),0.398058,-0.000508,-0.0013,0.000321,1,4.17394,-0.043852,6.697116,0.130619
+E1_yoy,весь календарь,0.399106,0.00054,-9.4e-05,0.001569,2,0.070337,-0.007063,5.901644,-1.752022
+A1_full_minus_long_weekend,long_weekend,0.399395,0.00083,-4.4e-05,0.002061,2,0.235066,0.008405,4.800138,0.112604
+A2_full_minus_local_holiday,local_holiday,0.398404,-0.000162,-0.001066,0.000328,2,-0.128146,0.005649,0.04849,0.502157
+A3_full_minus_payday,payday,0.398602,3.6e-05,-0.000222,0.000331,1,-0.369566,0.016954,-0.057078,-1.077247

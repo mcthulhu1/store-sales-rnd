@@ -1,0 +1,8 @@
+base: ../baseline.yaml
+experiment_id: E3_full
+hypothesis: "оба улучшения вместе"
+output_dir: outputs/hw2/E3_full/seed2024
+extra_features: [yoy, long_weekend, local_holiday, payday]
+seed: 2024
+mlflow:
+  experiment: store-sales-hw2
