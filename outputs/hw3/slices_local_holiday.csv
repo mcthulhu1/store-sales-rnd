@@ -1,0 +1,3 @@
+local_holiday_slice,n_rows,n_series,n_days,rmsle,ci_low,ci_high,bias_log,fact_mean,pred_mean,share_of_sq_error,rmsle_seed_min,rmsle_seed_max,small_group
+нет,113091,1782,64,0.3981,0.3879,0.4086,0.0023,473.5913,477.4359,0.9898,0.3975,0.3981,False
+местный праздник,957,693,8,0.44,0.4075,0.4762,-0.0104,346.4858,361.7277,0.0102,0.4378,0.4407,False

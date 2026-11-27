@@ -9,3 +9,8 @@ mlartifacts/
 .idea/
 # прогнозы по каждому запуску ДЗ №2-3 (~2 МБ на запуск) воспроизводятся скриптами, в git не нужны
 outputs/hw*/**/val_predictions_last_fold.csv
+# прогнозы всех фолдов и модели ДЗ №3 (~18 МБ) пересоздает scripts/run_hw3.sh
+outputs/hw3/predictions/
+outputs/hw3/models/
+# быстрая проверка ДЗ №3 (--output-dir outputs/hw3_smoke)
+outputs/hw3_smoke/

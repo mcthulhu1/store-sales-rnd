@@ -1,0 +1,12 @@
+,value
+n_rows,441.0
+share_rows,0.00387
+share_of_sq_error,0.06953
+rmsle_spike,1.68982
+rmsle_other,0.38515
+promo_share_spike,0.8322
+promo_share_other,0.43385
+n_spike_school,191.0
+median_fact_to_pred,5.12488
+spike_rate_train,0.00721
+spike_rate_train_no_school,0.00641
